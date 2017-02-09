@@ -48,7 +48,9 @@
                 android:id="@+id/editText"
                 android:layout_weight="1"
                 android:hint="User :"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimary" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,7 +72,9 @@
                 android:id="@+id/editText2"
                 android:layout_weight="1"
                 android:hint="Password :"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimary" />
         </LinearLayout>
     </LinearLayout>
 

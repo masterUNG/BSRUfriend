@@ -15,6 +15,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageView imageView;
     private RadioGroup radioGroup;
     private Button button;
+    private String nameString, userString, passString;
 
 
     @Override
@@ -36,7 +37,10 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //
+                //Get Value From Edit text
+                nameString = nameEditText.getText().toString().trim();
+                userString = userEditText.getText().toString().trim();
+                passString = passEditText.getText().toString().trim();
 
             }   // onClick
         });

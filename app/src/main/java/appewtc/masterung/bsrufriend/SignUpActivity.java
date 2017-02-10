@@ -42,6 +42,12 @@ public class SignUpActivity extends AppCompatActivity {
                 userString = userEditText.getText().toString().trim();
                 passString = passEditText.getText().toString().trim();
 
+                //Check Space
+                if (nameString.equals("") || userString.equals("") || passString.equals("")) {
+                    // True ==> Have Space
+
+                }
+
             }   // onClick
         });
 

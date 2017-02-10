@@ -195,10 +195,24 @@ public class SignUpActivity extends AppCompatActivity {
             Log.d(tag, "User ==> " + userString);
             Log.d(tag, "Password ==> " + passString);
 
-            nameImageString = "http://swiftcodingthai.com/bsru/Image_master" + pathImageString.substring(pathImageString.lastIndexOf("/"));
+            nameImageString = "http://swiftcodingthai.com/bsru/Image_master" +
+                    pathImageString.substring(pathImageString.lastIndexOf("/"));
             Log.d(tag, "Image ==> " + nameImageString);
             Log.d(tag, "Avata ==> " + anInt);
 
+            AddValueToUser addValueToUser = new AddValueToUser(SignUpActivity.this,
+                    nameString, userString, passString, nameImageString,
+                    Integer.toString(anInt));
+            addValueToUser.execute("http://swiftcodingthai.com/bsru/add_master.php");
+            String s = addValueToUser.get();
+            Log.d(tag, "Result ==> " + s);
+
+            if (Boolean.parseBoolean(s)) {
+                finish();
+            } else {
+                MyAlert myAlert = new MyAlert(SignUpActivity.this);
+                myAlert.myDialog("Cannot Uploas", "Upload False");
+            }
 
 
 

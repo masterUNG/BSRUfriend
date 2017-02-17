@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -29,6 +30,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     private String[] loginStrings;
     private LocationManager locationManager;
     private Criteria criteria;
+    private boolean aBoolean = true;    //for Stop Loop
 
 
     @Override
@@ -58,7 +60,33 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        //My Loop
+        myLoop();
+
+
     }   //  Main Method
+
+    private void myLoop() {
+
+        // Doing
+        afterResume();
+
+
+
+        //Delay
+        if (aBoolean) {
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    myLoop();
+                }
+            }, 1000);
+
+        }   // if
+
+    }   // myLoop
 
     @Override
     protected void onResume() {
@@ -91,6 +119,8 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     @Override
     protected void onStop() {
         super.onStop();
+
+        aBoolean = false;
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling

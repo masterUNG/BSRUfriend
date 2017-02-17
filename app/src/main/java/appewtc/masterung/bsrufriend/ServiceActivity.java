@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -58,6 +59,34 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         mapFragment.getMapAsync(this);
 
     }   //  Main Method
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        afterResume();
+
+    }
+
+    private void afterResume() {
+
+        Location networkLocation = myFindLocation(LocationManager.NETWORK_PROVIDER);
+        if (networkLocation != null) {
+            userLatADouble = networkLocation.getLatitude();
+            userLngADouble = networkLocation.getLongitude();
+        }
+
+        Location gpsLocation = myFindLocation(LocationManager.GPS_PROVIDER);
+        if (gpsLocation != null) {
+            userLatADouble = gpsLocation.getLatitude();
+            userLngADouble = gpsLocation.getLongitude();
+        }
+
+        Log.d("17febV1", "lat ==> " + userLngADouble);
+        Log.d("17febV1", "Lng ==> " + userLngADouble);
+
+
+    }   // afterResume
 
     @Override
     protected void onStop() {

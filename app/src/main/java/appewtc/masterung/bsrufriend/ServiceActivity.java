@@ -72,6 +72,8 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         // Doing
         afterResume();
 
+        updateLatLng();
+
 
 
         //Delay
@@ -88,6 +90,22 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         }   // if
 
     }   // myLoop
+
+    private void updateLatLng() {
+
+        try {
+
+            EditLatLng editLatLng = new EditLatLng(ServiceActivity.this, loginStrings[0]);
+            editLatLng.execute(Double.toString(userLatADouble),
+                    Double.toString(userLngADouble));
+            boolean b = Boolean.parseBoolean(editLatLng.get());
+            Log.d("17febV2", "Result ==> " + b);
+
+        } catch (Exception e) {
+            Log.d("17febV2", "e update ==> " + e.toString());
+        }
+
+    }
 
     @Override
     protected void onResume() {

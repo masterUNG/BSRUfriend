@@ -82,7 +82,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
             userLngADouble = gpsLocation.getLongitude();
         }
 
-        Log.d("17febV1", "lat ==> " + userLngADouble);
+        Log.d("17febV1", "lat ==> " + userLatADouble);
         Log.d("17febV1", "Lng ==> " + userLngADouble);
 
 

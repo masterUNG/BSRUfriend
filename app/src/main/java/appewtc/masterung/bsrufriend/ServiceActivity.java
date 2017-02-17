@@ -18,7 +18,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class ServiceActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -74,6 +79,8 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
         updateLatLng();
 
+        createMarker();
+
 
 
         //Delay
@@ -90,6 +97,40 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         }   // if
 
     }   // myLoop
+
+    private void createMarker() {
+
+        try {
+
+            mMap.clear();
+
+            String urlPHP = "http://swiftcodingthai.com/bsru/get_user_master.php";
+            int[] avataInts = new int[]{R.drawable.bird48, R.drawable.doremon48,
+            R.drawable.kon48, R.drawable.nobita48, R.drawable.rat48};
+
+            GetUser getUser = new GetUser(ServiceActivity.this);
+            getUser.execute(urlPHP);
+            String strJSON = getUser.get();
+
+            JSONArray jsonArray = new JSONArray(strJSON);
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                LatLng latLng = new LatLng(Double.parseDouble(jsonObject.getString("Lat")),
+                        Double.parseDouble(jsonObject.getString("Lng")));
+                mMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                .icon(BitmapDescriptorFactory
+                        .fromResource(avataInts[Integer.parseInt(jsonObject.getString("Avata"))])));
+
+            }   //for
+
+
+        } catch (Exception e) {
+            Log.d("17febV3", "e createMarker ==> " + e.toString());
+        }
+
+    }   // createMarker
 
     private void updateLatLng() {
 
